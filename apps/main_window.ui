@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main_window</class>
+ <widget class="QMainWindow" name="main_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>main_window</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabs">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="eq_tab">
+       <attribute name="title">
+        <string>Math</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QLabel" name="func_lbl">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Function</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPlainTextEdit" name="function_text_edit">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>200</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="res_lbl">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Result</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="result_text_edit">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>200</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="rowcol_hlayout">
+          <item>
+           <widget class="QLabel" name="col_lbl">
+            <property name="text">
+             <string>Columns</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="col_spinbox">
+            <property name="value">
+             <number>4</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="row_lbl">
+            <property name="text">
+             <string>Rows</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="row_spinbox">
+            <property name="value">
+             <number>4</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="findminmax_btn">
+            <property name="text">
+             <string>Find Min Max</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="inequations_lbl">
+          <property name="text">
+           <string>Inequations</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QTableWidget" name="inequations_table">
+          <property name="styleSheet">
+           <string notr="true">QTableView
+{
+    gridline-color:  gray;  
+}</string>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="rowCount">
+           <number>4</number>
+          </property>
+          <property name="columnCount">
+           <number>4</number>
+          </property>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <column/>
+          <column/>
+          <column/>
+          <column/>
+          <item row="0" column="0">
+           <property name="text">
+            <string>1</string>
+           </property>
+          </item>
+          <item row="0" column="1">
+           <property name="text">
+            <string>-1</string>
+           </property>
+          </item>
+          <item row="0" column="2">
+           <property name="text">
+            <string>1</string>
+           </property>
+          </item>
+          <item row="0" column="3">
+           <property name="text">
+            <string>&lt;=</string>
+           </property>
+          </item>
+          <item row="1" column="0">
+           <property name="text">
+            <string>1</string>
+           </property>
+          </item>
+          <item row="1" column="1">
+           <property name="text">
+            <string>1</string>
+           </property>
+          </item>
+          <item row="1" column="2">
+           <property name="text">
+            <string>2</string>
+           </property>
+          </item>
+          <item row="1" column="3">
+           <property name="text">
+            <string>&lt;=</string>
+           </property>
+          </item>
+          <item row="2" column="0">
+           <property name="text">
+            <string>1</string>
+           </property>
+          </item>
+          <item row="2" column="1">
+           <property name="text">
+            <string>-2</string>
+           </property>
+          </item>
+          <item row="2" column="2">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </item>
+          <item row="2" column="3">
+           <property name="text">
+            <string>&gt;=</string>
+           </property>
+          </item>
+          <item row="3" column="0">
+           <property name="text">
+            <string>2</string>
+           </property>
+          </item>
+          <item row="3" column="1">
+           <property name="text">
+            <string>2</string>
+           </property>
+          </item>
+          <item row="3" column="2">
+           <property name="text">
+            <string>1</string>
+           </property>
+          </item>
+          <item row="3" column="3">
+           <property name="text">
+            <string>&gt;=</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="plot_tab">
+       <attribute name="title">
+        <string>Plot</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="1" column="0">
+         <widget class="QwtPlot" name="qwt_plot"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="draw_btn">
+          <property name="text">
+           <string>Draw</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
