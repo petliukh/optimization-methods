@@ -111,6 +111,8 @@ class FogelMethod:
             if print_iter:
                 print(self.iter_str())
 
+        return np.dot(self.tariffs.flatten(), self.prod_qnts.flatten())
+
     def iter_str(self):
         ss = io.StringIO()
         ss.write("---=== Iter ===---\n")
@@ -156,7 +158,8 @@ def main():
     stock = [210.0, 170, 65]
 
     fm = FogelMethod(tariffs, demand, stock)
-    fm.solve_ref_plan(print_iter=True)
+    sol = fm.solve_ref_plan(print_iter=True)
+    print(f"L(X_ф) = {sol}")
 
 
 if __name__ == "__main__":
