@@ -96,14 +96,20 @@ class FogelMethod:
             self.demand[col] = 0
             self.skip_cols.append(col)
 
+    def stop_iter(self):
+        return all(np.isclose(0, i) for i in self.demand) and all(
+            np.isclose(0, i) for i in self.stock
+        )
+
     def solve_ref_plan(self, print_iter=False):
-        while True:
+        while not self.stop_iter():
             self.row_penalties.append(self.find_row_penalties())
             self.col_penalties.append(self.find_column_penalties())
-            row, col, sum = self.find_max_penalty_sum_cell()
+            row, col, _ = self.find_max_penalty_sum_cell()
             self.change_tariffs_and_demands(row, col)
-            print(self.iter_str())
-            breakpoint()
+
+            if print_iter:
+                print(self.iter_str())
 
     def iter_str(self):
         ss = io.StringIO()
@@ -120,7 +126,7 @@ class FogelMethod:
                 ss.write(f"{row_penalty[i]:.2f}\t")
             ss.write("\n")
 
-        ss.write("-"*34)
+        ss.write("-" * 34)
         ss.write("\n")
         for dem in self.demand:
             ss.write(f"{dem:.2f}\t")
