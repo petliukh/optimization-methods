@@ -45,8 +45,9 @@ class FogelMethod:
                 col_penalties.append(np.nan)
                 continue
 
-            a, b = np.partition(col, 1)[0:2]
-            col_penalties.append(np.abs(a - b))
+            col[np.isnan(col)] = np.inf
+            min1, min2 = np.sort(col)[:2]
+            col_penalties.append(np.abs(min1 - min2))
 
         col_penalties = np.array(col_penalties)
         col_penalties = np.ma.array(col_penalties, mask=np.isnan(col_penalties))
@@ -148,7 +149,7 @@ class FogelMethod:
         return ss.getvalue()
 
 
-def main():
+def test_fogel_method():
     tariffs = [
         [5.0, 8, 1, 2],
         [2.0, 5, 4, 9],
@@ -160,6 +161,10 @@ def main():
     fm = FogelMethod(tariffs, demand, stock)
     sol = fm.solve_ref_plan(print_iter=True)
     print(f"L(X_ф) = {sol}")
+    assert sol == 895
+
+def main():
+    test_fogel_method()
 
 
 if __name__ == "__main__":
