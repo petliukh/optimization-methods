@@ -1,4 +1,5 @@
 import numpy as np
+import sympy as sp
 import matplotlib.pyplot as plt
 
 
@@ -29,10 +30,9 @@ def dsk(f, x, h):
     return x_mm2, x_mm1, x_mp1
 
 
-def find_lipschitz_const(f, a, b):
-    # | f(x) - f(y) | <= L * | x - y |
-    # L >= | f(x) - f(y) | / | x - y |
-    return abs(f(a) - f(b)) / abs(a - b) + 0.1
+def find_lipschitz_const(f, a, b, npoints, eps):
+    lnspace = np.linspace(a, b, npoints)
+    return max(abs(f(x + eps) - f(x)) / eps for x in lnspace)
 
 
 def fnmin(f, L, xks, a, b, num):
@@ -42,37 +42,40 @@ def fnmin(f, L, xks, a, b, num):
     return lnspace[min_pos], rhos[min_pos]
 
 
-def plot_rho(f, L, xks, a, b, num):
+def plot_rho(f, L, xks, a, b, num, min=None):
     lnspace = np.linspace(a, b, num)
     f_ys = np.array([f(x) for x in lnspace])
     rhos = [max(f(xk) - L * abs(x - xk) for xk in xks) for x in lnspace]
-
     plt.plot(lnspace, f_ys)
     plt.plot(lnspace, rhos)
+
+    if min:
+        x, y = min
+        plt.scatter(x, y, s=50, c="red")
     plt.show()
 
 
-def broken_lines_method(f, a, b, L, eps):
+def broken_lines_method(f, a, b, L, npoints, eps):
     xks = [a]
 
     while True:
-        xkp1, rho_min = fnmin(f, L, xks, a, b, 1000)
+        xkp1, rho_min = fnmin(f, L, xks, a, b, npoints)
 
         if abs(rho_min - f(xkp1)) < eps:
-            plot_rho(f, L, xks, a, b, 1000)
+            plot_rho(f, L, xks, a, b, npoints, (xkp1, rho_min))
             return xkp1
         xks.append(xkp1)
 
 
 def test_broken_lines_method():
-    f = lambda x: x * x + 2 * x + 1
+    f = lambda x: x * x - 5 * x + 4
     eps = 1e-2
+    npoints = 500
     a, x_m, b = dsk(f, 3, 2)
     print(f"[a, b] = [{a:.2f},{b:.2f}], x* = {x_m:.2f}")
 
-    # L = find_lipschitz_const(f, a, b)
-    L = 8
-    x_min = broken_lines_method(f, a, b, L, eps)
+    L = find_lipschitz_const(f, a, b, npoints, eps)
+    x_min = broken_lines_method(f, a, b, L, npoints, eps)
 
     print(f"L = {L}")
     print(f"Mimimum of f = ({x_min}, {f(x_min)}) for eps {eps}")
