@@ -64,7 +64,7 @@ def broken_lines_method(f, a, b, L, eps):
         xks.append(xkp1)
 
 
-def test_gradient_descent_method():
+def test_broken_lines_method():
     f = lambda x: x * x + 2 * x + 1
     eps = 1e-2
     a, x_m, b = dsk(f, 3, 2)
@@ -79,7 +79,7 @@ def test_gradient_descent_method():
 
 
 def main():
-    test_gradient_descent_method()
+    test_broken_lines_method()
 
 
 if __name__ == "__main__":
