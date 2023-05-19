@@ -24,6 +24,8 @@ def dsk(f, x, h):
     h /= 2
     x_mp1 = x_m - h
     x_mm2, x_mm1, x_mp1, x_m = sorted((x_mm2, x_mm1, x_mp1, x_m))
+    print("x_mm2\tx_mm1\tx_mp1\tx_m\th")
+    print(f"{x_mm2:.2f}\t{x_mm1:.2f}\t{x_mp1:.2f}\t{x_m:.2f}\t{h}")
 
     if f(x_mp1) < f(x_mm1):
         return x_mm1, x_mp1, x_m
@@ -62,6 +64,7 @@ def broken_lines_method(f, a, b, L, npoints, eps):
         xkp1, rho_min = fnmin(f, L, xks, a, b, npoints)
 
         if abs(rho_min - f(xkp1)) < eps:
+            print(f"xks: {xks}")
             plot_rho(f, L, xks, a, b, npoints, (xkp1, rho_min))
             return xkp1
         xks.append(xkp1)
@@ -69,6 +72,7 @@ def broken_lines_method(f, a, b, L, npoints, eps):
 
 def test_broken_lines_method():
     f = lambda x: x * x - 5 * x + 4
+    # f = lambda x: x * x + 2 * x + 1
     eps = 1e-2
     npoints = 500
     a, x_m, b = dsk(f, 3, 2)

@@ -578,8 +578,8 @@ def test_all_methods_variant16():
     pm = PotentialsMethod(tarifs, demand, supply)
     mm = MinimalElementMethod(tarifs, demand, supply)
 
-    # fm.solve_ref_plan(print_iter=True)
-    # pm.solve_ref_plan(print_iter=True)
+    fm.solve_ref_plan(print_iter=True)
+    pm.solve_ref_plan(print_iter=True)
     mm.solve_ref_plan(print_iter=True)
 
 
