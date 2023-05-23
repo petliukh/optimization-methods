@@ -40,10 +40,23 @@ def second_derivative(f, x, h=1e-6):
     return fppx
 
 
-def newtons_minimize(f, x, eps):
+def plot_slope(x, f, a, b):
+    def line(x_i):
+        return (x_i - x) * first_derivative(f, x) + f(x)
+    xs = np.linspace(a, b, 1000)
+    ys = [line(x_i) for x_i in xs]
+    plt.plot(xs, ys)
+
+
+def newtons_minimize(f, x, eps, a, b):
     k = 0
     x_prev = x
+    plt.scatter(x, f(x))
+    plot_slope(x, f, a, b)
     x = x_prev - first_derivative(f, x_prev) / second_derivative(f, x_prev)
+    plt.scatter(x, f(x))
+    plot_slope(x, f, a, b)
+
     print(f"Iteration {k}")
     print(f"x{k}={x_prev}, x{k+1}={x}")
     print(f"f(x{k})={f(x_prev)}, f(x{k+1})={f(x)}")
@@ -52,6 +65,8 @@ def newtons_minimize(f, x, eps):
         k += 1
         x_prev = x
         x = x_prev - first_derivative(f, x_prev) / second_derivative(f, x_prev)
+        plt.scatter(x, f(x))
+        plot_slope(x, f, a, b)
         print(f"Iteration {k}")
         print(f"x{k}={x_prev}, x{k+1}={x}")
         print(f"f(x{k})={f(x_prev)}, f(x{k+1})={f(x)}")
@@ -72,7 +87,7 @@ def main():
     x0 = 3
     h = 2
     a, x_m, b = dsk(f, x0, h)
-    min = newtons_minimize(f, x_m, eps)
+    min = newtons_minimize(f, x_m, eps, a, b)
 
     plot(f, a, b, min, f(min))
     print(f"x_min = {min:.2f}, f(x_min) = {f(min):.2f}")
