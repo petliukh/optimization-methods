@@ -5,12 +5,13 @@
 
 #include <Eigen/Core>
 #include <QMainWindow>
+#include <QPainter>
 #include <QPointF>
 #include <qwt_plot_curve.h>
-#include <qwt_plot_item.h>
 #include <qwt_plot_shapeitem.h>
-#include <qwt_scale_draw.h>
+#include <qwt_scale_map.h>
 #include <qwt_symbol.h>
+#include <qwt_text.h>
 #include <vector>
 
 QT_BEGIN_NAMESPACE

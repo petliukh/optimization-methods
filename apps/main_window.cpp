@@ -14,16 +14,19 @@ using namespace petliukh::optimization_methods::math_utils;
 class QwtPlotCurveWithTitle : public QwtPlotCurve {
 public:
     explicit QwtPlotCurveWithTitle(const QString& title = QString())
-        : QwtPlotCurve(title) {
+        : QwtPlotCurve(title)
+    {
     }
-    explicit QwtPlotCurveWithTitle(const QwtText& title) : QwtPlotCurve(title) {
+    explicit QwtPlotCurveWithTitle(const QwtText& title) : QwtPlotCurve(title)
+    {
     }
 
 protected:
     virtual void drawCurve(
             QPainter* p, int style, const QwtScaleMap& xMap,
             const QwtScaleMap& yMap, const QRectF& canvasRect, int from,
-            int to) const {
+            int to) const
+    {
         QwtPlotCurve::drawCurve(p, style, xMap, yMap, canvasRect, from, to);
         QPointF point = sample(from);
         p->drawText(
@@ -33,16 +36,19 @@ protected:
 };
 
 main_window::main_window(QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::main_window) {
+    : QMainWindow(parent), ui(new Ui::main_window)
+{
     ui->setupUi(this);
     x_range = Vector2d(-5, 5);
 }
 
-main_window::~main_window() {
+main_window::~main_window()
+{
     delete ui;
 }
 
-MatrixXd main_window::get_matrix() {
+MatrixXd main_window::get_matrix()
+{
     int cols = ui->inequations_table->columnCount() - 1;
     int rows = ui->inequations_table->rowCount();
     MatrixXd mtx(rows, cols);
@@ -56,7 +62,8 @@ MatrixXd main_window::get_matrix() {
     return mtx;
 }
 
-vector<string> main_window::get_signs() {
+vector<string> main_window::get_signs()
+{
     int cols = ui->inequations_table->columnCount();
     int rows = ui->inequations_table->rowCount();
     vector<string> signs;
@@ -70,11 +77,13 @@ vector<string> main_window::get_signs() {
     return signs;
 }
 
-string main_window::get_func() {
+string main_window::get_func()
+{
     return ui->function_text_edit->toPlainText().toStdString();
 }
 
-vector<Vector2d> main_window::get_endpoints(const vector<pline2>& param_lines) {
+vector<Vector2d> main_window::get_endpoints(const vector<pline2>& param_lines)
+{
     vector<Vector2d> endpoints;
     endpoints.reserve(param_lines.size());
 
@@ -85,7 +94,8 @@ vector<Vector2d> main_window::get_endpoints(const vector<pline2>& param_lines) {
     return endpoints;
 }
 
-void main_window::shade_polygon_area_n_scatter(vector<Vector2d>& points) {
+void main_window::shade_polygon_area_n_scatter(vector<Vector2d>& points)
+{
     QPolygonF polygon;
 
     for (auto& point : points) {
@@ -116,7 +126,8 @@ void main_window::shade_polygon_area_n_scatter(vector<Vector2d>& points) {
 }
 
 void main_window::draw_lines(
-        const vector<pline2>& parametrized_lines, vector<string>& labels) {
+        const vector<pline2>& parametrized_lines, vector<string>& labels)
+{
     for (int i = 0; i < parametrized_lines.size(); i++) {
         Vector2d p1 = point_at_x(parametrized_lines[i], x_range(0));
         Vector2d p2 = point_at_x(parametrized_lines[i], x_range(1));
@@ -131,15 +142,18 @@ void main_window::draw_lines(
     ui->qwt_plot->replot();
 }
 
-void main_window::on_col_spinbox_valueChanged(int arg1) {
+void main_window::on_col_spinbox_valueChanged(int arg1)
+{
     ui->inequations_table->setColumnCount(arg1);
 }
 
-void main_window::on_row_spinbox_valueChanged(int arg1) {
+void main_window::on_row_spinbox_valueChanged(int arg1)
+{
     ui->inequations_table->setRowCount(arg1);
 }
 
-void main_window::on_draw_btn_clicked() {
+void main_window::on_draw_btn_clicked()
+{
     MatrixXd mtx = get_matrix();
     vector<string> signs = get_signs();
     gmet gm(mtx, signs);
@@ -168,7 +182,8 @@ void main_window::on_draw_btn_clicked() {
     shade_polygon_area_n_scatter(intersections);
 }
 
-void main_window::on_findminmax_btn_clicked() {
+void main_window::on_findminmax_btn_clicked()
+{
     try {
         string func = get_func();
         MatrixXd mtx = get_matrix();
